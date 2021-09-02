@@ -15,7 +15,7 @@
  */
 
 var md = require('./02.module'); // .js 可以省略
-var { add, mul } = require('./math');
+var { add, mul } = require('./04.math');
 
 console.log(add(3, 5));
 console.log(mul(3, 5));
