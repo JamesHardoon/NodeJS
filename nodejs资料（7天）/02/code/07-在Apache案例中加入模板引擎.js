@@ -4,7 +4,8 @@ var template = require('art-template')
 
 var server = http.createServer()
 
-var wwwDir = 'D:/Movie/www'
+// var wwwDir = 'D:/Movie/www'
+var wwwDir = '/Users/fangzhi/Documents/website/JamesHardoon/nodejs'
 
 server.on('request', function (req, res) {
   var url = req.url
