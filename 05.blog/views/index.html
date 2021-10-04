@@ -1,0 +1,26 @@
+<!-- 继承 layout.html 中的公共部分 -->
+
+{{extend './_layouts/layout.html'}}
+
+<!-- 填充样式内容 -->
+{{ block 'head'}}
+<style>
+  body {
+    background-color: skyblue;
+  }
+</style>
+{{/block}}
+
+<!-- 填充html内容 -->
+{{ block 'content'}}
+  <div>
+    <h1>index.html 填坑内容</h1>
+  </div>
+{{/block}}
+
+<!-- 填充脚本内容 -->
+{{ block 'script'}}
+  <script type="text/javascript">
+    console.log('子页面 index.html 填充的 js 脚本内容'); 
+  </script>
+{{/block}}

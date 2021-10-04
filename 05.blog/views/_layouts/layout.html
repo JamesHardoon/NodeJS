@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.css">
+  <!-- 为子页面留坑，需要有不一样的样式的话，就填充，不需要就不填充 -->
+  {{block 'head'}}{{/block}}
+</head>
+<body>
+    <!-- 模板继承 -->
+    {{ include '../handler.html' }}
+    <!-- 留一个坑，留着填充 -->
+    {{ block 'content'}}
+      <h1>默认内容</h1>
+    {{/block}}
+    {{ include '../footer.html' }}
+
+    <script src="../../node_modules/jquery/dist/jquery.js"></script>
+    <script src="../../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <!-- 为子页面留坑，需要有不一样的脚本，就填充，不需要就不填充 -->
+    {{block 'script'}}{{/block}}
+</body>
+</html>
