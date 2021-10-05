@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
-
+// const bodyParser = require('body-parser');
+const session = require('express-session');
+const router = require('./router');
 const app = express();
 
 // 开放公共资源
@@ -16,10 +18,32 @@ app.engine('html', require('express-art-template'));
 // 默认就是 ./views 目录
 app.set('views', path.join(__dirname, './views/'));
 
+// 配置中间件
+// 配置解析表单 POST 请求体插件
+// body-parser 插件 已被废弃，直接使用 express 即可
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
+// 注意要写在 app.use(router) 之前，否则会出现问题
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+// 在 Express 这个框架中，默认不支持 Session 和 Cookies
+// 但是我们可以只用第三方中间件：express-session 来解决
+// npm install express-session
+// 注意：一定要在 app.use(router) 之前配置
+// 当把这个插件配置好之后，我们就可以通过 req.session 来访问和设置 Session 成员
+// 添加 Session 数据：req.session.foo = 'bar'
+// 访问 Session 数据：req.session.foo
+app.use(session({
+  secret: 'keyboard cat', // 自定义配置加密字符串，在原有加密基础上和这个字符串拼进去加密
+  resave: false,
+  saveUninitialized: false, // 无论是否使用 Session, 都会默认直接给你分配一把钥匙(session)
+}))
+// 把 路由挂载到 app 中
+app.use(router);
+
 app.get('/', function (req, res) {
-  res.render('index.html', {
-    name: 'Hello Express! Hello Blog!'
-  });
+  res.render('index.html');
 });
 
 app.listen(5000, function () {
