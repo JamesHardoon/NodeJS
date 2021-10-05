@@ -88,7 +88,7 @@ router.get('/register', function(req, res) {
 // });
 
 // 注册页面接口
-router.post('/register', async function(req, res) {
+router.post('/register', async function(req, res, next) {
   // 1.获取表单提交的数据 req.body
   // console.log('注册页面接口:',req.body);
   // 2.操作数据库
@@ -122,10 +122,11 @@ router.post('/register', async function(req, res) {
       message: 'OK！'
     })
   } catch (err) {
-    return res.status(500).json({
-      err_code: 500,
-      message: err.message,
-    })
+    return next(err);
+    // return res.status(500).json({
+    //   err_code: 500,
+    //   message: err.message,
+    // })
   }
   // 3.发送响应
 });
@@ -136,7 +137,7 @@ router.get('/login', function(req, res) {
 });
 
 // 登陆页面接口
-router.post('/login', function(req, res) {
+router.post('/login', function(req, res, next) {
   // 1.获取表单数据
   // 2.查询数据库用户名密码是否正确
   // 3.发送响应数据
@@ -147,10 +148,11 @@ router.post('/login', function(req, res) {
     password: md5(md5(body.password)), // 加密查询
   }, function(err, user) {
     if (err) {
-      return res.status(500).json({
-        err_code: 500,
-        message: err.message,
-      })
+      return next(err);
+      // return res.status(500).json({
+      //   err_code: 500,
+      //   message: err.message,
+      // })
     }
 
     if(!user) {

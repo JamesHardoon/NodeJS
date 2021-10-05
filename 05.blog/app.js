@@ -42,6 +42,25 @@ app.use(session({
 // 把 路由挂载到 app 中
 app.use(router);
 
+// 配置一个处理 404 的中间件
+// 一点要写在 app.use(router) 之后
+// 前面的中间件都不匹配的话就会来到处理 404 的中间件
+app.use(function(req, res) {
+  res.render('404.html');
+})
+
+// 配置一个全局错误处理中间件
+// 4 个参数一定要写全
+app.use(function(err, req, res, next) {
+  // console.log('app error handler')
+  // 需要全局配置错误的话，前面写的 app.status(500) 都可以不用写了
+  // 直接替换成 return next(err)
+  app.status(500).render({
+    err_code: 500,
+    message: err.message
+  });
+})
+
 app.get('/', function (req, res) {
   res.render('index.html');
 });
